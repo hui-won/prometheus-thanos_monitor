@@ -1,0 +1,17 @@
+{
+	"ulid": "01FB3BHM508XP898892PZYRBZ1",
+	"minTime": 1626753600000,
+	"maxTime": 1626760800000,
+	"stats": {
+		"numSamples": 675592,
+		"numSeries": 1975,
+		"numChunks": 6631
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01FB3BHM508XP898892PZYRBZ1"
+		]
+	},
+	"version": 1
+}

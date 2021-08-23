@@ -1,0 +1,60 @@
+version: '2.1'
+services:
+  # Node Exporter
+  node-exporter_2:
+    image: bitnami/node-exporter:1
+ 
+ 
+  #Alertmanager
+#  alertmanager:
+#    image: bitnami/alertmanager:latest
+#    volumes:
+#      - ./prometheus-2.28.1.linux-amd64/alertmanager-0.5.1.linux-amd64/alertmanager.yml:/opt/bitnami/alertmanager/conf/prometheus.yml:ro
+#    ports:
+#      - '9093:9093'
+
+  # Prometheus Server
+  prometheus:
+    image: bitnami/prometheus:2
+    volumes:
+      - ./prometheus-2.28.1.linux-amd64/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml:ro
+      - ./prometheus-2.28.1.linux-amd64/alert.rules.yml:/opt/bitnami/prometheus/conf/alert.rules.yml:ro
+      - prometheus_data:/opt/bitnami/prometheus/data/
+    depends_on:
+#      - alertmanager
+      - node-exporter_2
+    ports:
+      - '9090:9090'
+
+  # Thanos Sidecar
+  sidecar:
+    image: bitnami/thanos:latest
+    volumes:
+      - prometheus_data:/data
+    networks:
+      - thanos-network
+    ports:
+      - '10901:10901'
+    command:
+      - sidecar
+      - --tsdb.path=/data
+      - --prometheus.url=http://211.252.85.242:45002
+      - --grpc-address=0.0.0.0:10901
+
+volumes:
+  prom_conf:
+    driver: local
+  tsdb_data:
+    driver: local
+  minio_data:
+    driver: local
+  ojb_store_conf:
+    driver: local
+  store_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  thanos-network:
+    driver: bridge

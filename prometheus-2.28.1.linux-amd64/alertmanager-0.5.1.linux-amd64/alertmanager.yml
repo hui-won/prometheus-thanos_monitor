@@ -1,0 +1,19 @@
+global:
+  slack_api_url: 'https://hooks.slack.com/services/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'
+
+route:
+  group_by: ['alertname']
+  group_wait: 1s
+  repeat_interval: 1h
+  receiver: 'slack-alert'
+  routes: []
+receivers:
+- name: 'slack-alert'
+  slack_configs:
+  - channel: "#project"
+    username: "Prometheus"
+    send_resolved: true
+    title: ''
+    text: ''
+templates:
+- '/path/to/slack.tmpl'

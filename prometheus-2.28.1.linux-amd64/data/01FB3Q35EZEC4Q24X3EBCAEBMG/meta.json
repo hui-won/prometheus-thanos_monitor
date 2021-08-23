@@ -1,0 +1,17 @@
+{
+	"ulid": "01FB3Q35EZEC4Q24X3EBCAEBMG",
+	"minTime": 1626831638651,
+	"maxTime": 1626832800000,
+	"stats": {
+		"numSamples": 57588,
+		"numSeries": 1302,
+		"numChunks": 1934
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01FB3Q35EZEC4Q24X3EBCAEBMG"
+		]
+	},
+	"version": 1
+}
